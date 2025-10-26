@@ -12,6 +12,8 @@ public class InputController : MonoBehaviour
 
     [SerializeField] private PlayerMovement movement;
 
+    [SerializeField] private InteractionController interactionController;
+
     //[SerializeField] private WeaponVals weaponVals;
 
     [Header("Input Values")]
@@ -19,17 +21,15 @@ public class InputController : MonoBehaviour
 
     public Vector2 mouseDirection;
 
+    public float interact = 0;
+
     private float jumping = 0;
 
     private float sprinting = 0;
 
     private float crouching = 0;
 
-    private float primary = 0;
-
-    private float secondary = 0;
-
-    [SerializeField] private float viewSwitch = 0;
+    private bool isReleased;
 
     [Header("Input Action References")]
     [SerializeField] private InputActionReference _moveAction;
@@ -177,12 +177,25 @@ public class InputController : MonoBehaviour
     //
     public void OnInteractPerformed(InputAction.CallbackContext context)
     {
-        float primary = context.ReadValue<float>();
+        interact = context.ReadValue<float>();
+
+        if (!isReleased)
+        {
+            return;
+        }
+
+        isReleased = false;
+
+        interactionController.Interact = interact;
     }
 
     public void OnInteractCancelled(InputAction.CallbackContext context)
     {
-        float primary = context.ReadValue<float>();
+        interact = context.ReadValue<float>();
+
+        isReleased = true;
+
+        interactionController.Interact = interact;
     }
     #endregion
 }
