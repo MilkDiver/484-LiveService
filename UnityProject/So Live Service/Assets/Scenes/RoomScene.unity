@@ -2087,6 +2087,7 @@ GameObject:
   - component: {fileID: 1682460343}
   - component: {fileID: 1682460342}
   - component: {fileID: 1682460346}
+  - component: {fileID: 1682460347}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -2349,6 +2350,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
   interactionAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   currentBalance: 0
+--- !u!114 &1682460347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682460339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32a5fdda6e560c04f8e201e9f71f1701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInventory
 --- !u!1 &1726196443
 GameObject:
   m_ObjectHideFlags: 0
