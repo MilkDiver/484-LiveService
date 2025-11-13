@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -153,14 +154,11 @@ public class InteractionController : MonoBehaviour
             }
         }
 
-        
-
-        
-            
-
-       
-
         targetOBJ = hit.collider?.GetComponent<Transform>();
     }
 
+    private void OnDrawGizmos()
+    {
+
+    }
 }
