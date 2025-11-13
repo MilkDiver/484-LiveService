@@ -30,10 +30,12 @@ public class InteractionController : MonoBehaviour
 
     IInteractable currentTargetInteractable;
 
+    IPurchase currentTargetPurchasable;
+
     [SerializeField] private float testVar1, testVar2, testVar3;
 
-    public float Interact 
-    { 
+    public float Interact
+    {
         get { return interact; }
         set { interact = value; }
     }
@@ -139,7 +141,18 @@ public class InteractionController : MonoBehaviour
 
         Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactableLayers);
 
-        currentTargetInteractable = hit.collider?.GetComponent<IInteractable>();
+        if (hit.collider != null)
+        {
+            if (hit.collider.TryGetComponent<IInteractable>(out IInteractable interactObj))
+            {
+                currentTargetInteractable = interactObj;
+            }
+
+            else if (hit.collider.TryGetComponent<IPurchase>(out IPurchase purchaseObj))
+            {
+                currentTargetPurchasable = purchaseObj;
+            }
+        }
 
         targetOBJ = hit.collider?.GetComponent<Transform>();
     }

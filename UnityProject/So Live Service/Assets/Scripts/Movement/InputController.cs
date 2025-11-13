@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static PlayerInteraction;
 
 public class InputController : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class InputController : MonoBehaviour
 
     [SerializeField] private PlayerMovement movement;
 
-    [SerializeField] private InteractionController interactionController;
+    // Delegates
+    public delegate void PlayerInteractionDelegate();
 
     //[SerializeField] private WeaponVals weaponVals;
 
@@ -30,6 +32,8 @@ public class InputController : MonoBehaviour
     private float crouching = 0;
 
     private bool isReleased;
+
+    public static event PlayerInteractionDelegate OnInteractInteraction;
 
     [Header("Input Action References")]
     [SerializeField] private InputActionReference _moveAction;
@@ -177,16 +181,9 @@ public class InputController : MonoBehaviour
     //
     public void OnInteractPerformed(InputAction.CallbackContext context)
     {
-        interact = context.ReadValue<float>();
+        float primary = context.ReadValue<float>();
 
-        if (!isReleased)
-        {
-            return;
-        }
-
-        isReleased = false;
-
-        interactionController.Interact = interact;
+        OnInteractInteraction.Invoke();
     }
 
     public void OnInteractCancelled(InputAction.CallbackContext context)
