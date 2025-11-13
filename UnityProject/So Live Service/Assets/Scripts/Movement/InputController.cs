@@ -192,7 +192,6 @@ public class InputController : MonoBehaviour
 
         isReleased = true;
 
-        interactionController.Interact = interact;
     }
     #endregion
 }
