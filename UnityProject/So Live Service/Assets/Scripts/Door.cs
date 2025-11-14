@@ -5,19 +5,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     // References
-    [SerializeField] TMPro.TextMeshProUGUI doorInteractionText;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private TMPro.TextMeshProUGUI doorInteractionText;
 
     private void OnTriggerEnter(Collider other)
     {
