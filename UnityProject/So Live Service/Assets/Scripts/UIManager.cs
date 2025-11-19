@@ -36,11 +36,17 @@ public class UIManager : MonoBehaviour
     {
         if (shopPanel.activeSelf)
         {
+            // Unlock Cursor and shop Shop
             shopPanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
+            // Hide and lock cursor
             shopPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         
     }
