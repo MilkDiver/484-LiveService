@@ -1,19 +1,21 @@
 using TMPro;
 using UnityEngine;
 
-public class BuyShop : MonoBehaviour, IPurchase
+public class BuyShop : MonoBehaviour,IPurchase, IInteractable
 {
-    public string interactMessage => purchaseMessage;
-
     public bool purchased => isPurchased;
 
     public float price => purchasePrice;
 
     public TextMeshProUGUI textObject => interactionText;
 
+    public string InteractMessage => purchaseMessage;
+
     private bool isPurchased;
     private string purchaseMessage;
     private float purchasePrice;
+
+    [SerializeField] private GameObject spawnItem;
 
     //The text part of floating UI element
     [SerializeField] private TMPro.TextMeshProUGUI interactionText;
@@ -23,20 +25,23 @@ public class BuyShop : MonoBehaviour, IPurchase
         interactionText.text = purchaseMessage;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void SpawnItem()
     {
-        if (other.name == "PlayerGeneralCollider")
-        {
-            interactionText.gameObject.SetActive(true);
-            other.transform.parent.gameObject.GetComponent<PlayerInteraction>().CurrentInteractingObject = this.gameObject;
-        }
+        Instantiate(spawnItem);
     }
 
-    private void OnTriggerExit(Collider other)
+    public void Interact()
     {
-        if (other.name == "PlayerGeneralCollider")
+        if (isPurchased != true && CurrencyManagement.Instance.CurrentBalance >= purchasePrice)
         {
-            interactionText.gameObject.SetActive(false);
+            CurrencyManagement.Instance.CurrentBalance -= purchasePrice;
+
+            SpawnItem();
+
+        }
+        if (isPurchased == false)
+        {
+            Debug.Log("Not Enought Money");
         }
     }
 }

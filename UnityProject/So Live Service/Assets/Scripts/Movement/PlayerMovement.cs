@@ -411,11 +411,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void Tilt()
-    {
-
-    }
-
     public bool OnSlope()
     {
         if (Physics.Raycast(playerCenterpoint.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))

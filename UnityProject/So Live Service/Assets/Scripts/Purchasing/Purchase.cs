@@ -8,11 +8,11 @@ public enum Purchasable
 
 public interface IPurchase
 {
-    public string interactMessage { get; }
-
     public float price { get; }
 
     public bool purchased { get; }
 
     public TMPro.TextMeshProUGUI textObject { get; }
+
+    public void Interact();
 }
