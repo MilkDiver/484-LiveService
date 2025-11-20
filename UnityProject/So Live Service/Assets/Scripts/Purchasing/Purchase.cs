@@ -12,7 +12,13 @@ public interface IPurchase
 
     public bool purchased { get; }
 
+    public string displayedMessage { get; }
+
     public TMPro.TextMeshProUGUI textObject { get; }
 
     public void Interact();
+
+
 }
+
+

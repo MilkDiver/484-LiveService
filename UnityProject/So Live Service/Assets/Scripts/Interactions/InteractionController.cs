@@ -64,12 +64,11 @@ public class InteractionController : MonoBehaviour
 
         UpdateInteractionText();
 
-        UpdateInteraction();
     }
 
-    private void UpdateInteraction()
+    public void WorldInteraction()
     {
-        if (currentTargetInteractable != null && interact != 0)
+        if (currentTargetInteractable != null)
         {
             currentTargetInteractable.Interact();
         }
@@ -94,7 +93,7 @@ public class InteractionController : MonoBehaviour
 
         //ScaleInteractionText();
 
-        MoveInteractionText();
+        //MoveInteractionText();
 
         interactionText.text = currentTargetInteractable.InteractMessage;
 

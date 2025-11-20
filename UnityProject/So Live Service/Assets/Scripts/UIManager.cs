@@ -7,8 +7,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance { get; private set; }
 
     // References    
-    [SerializeField] private PlayerInteraction playerInteraction;
-    [SerializeField] private CurrencyManagement currencyManagement;
+    //[SerializeField] private PlayerInteraction playerInteraction;
+    //[SerializeField] private CurrencyManagement currencyManagement;
 
     // UI References
     [SerializeField] private TextMeshProUGUI currencyText;
@@ -30,18 +30,18 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PlayerInteraction.OnButtonInteraction += UpdatePlayerBalance;
-        PlayerInteraction.OnShopInteraction += ToggleShop;
+        //PlayerInteraction.OnButtonInteraction += UpdatePlayerBalance;
+        //PlayerInteraction.OnShopInteraction += ToggleShop;
 
         UpdatePlayerBalance();
     }
 
-    void UpdatePlayerBalance()
+    public void UpdatePlayerBalance()
     {
-        currencyText.text = playerInteraction.CurrentBalance.ToString();
+        currencyText.text = $"{CurrencyManagement.Instance.CurrentBalance}";
     }
 
-    void ToggleShop()
+    public void ToggleShop()
     {
         if (shopPanel.activeSelf)
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using static PlayerInteraction;
 
 public class InputController : MonoBehaviour
@@ -14,7 +15,7 @@ public class InputController : MonoBehaviour
     [SerializeField] private PlayerMovement movement;
 
     // Delegates
-    public delegate void PlayerInteractionDelegate();
+    //public delegate void PlayerInteractionDelegate();
 
     //[SerializeField] private WeaponVals weaponVals;
 
@@ -33,8 +34,8 @@ public class InputController : MonoBehaviour
 
     private bool isReleased;
 
-    public static event PlayerInteractionDelegate OnInteractInteraction;
-    public static event PlayerInteractionDelegate OnShopInteraction;
+    //public static event PlayerInteractionDelegate OnInteractInteraction;
+    //public static event PlayerInteractionDelegate OnShopInteraction;
 
     [Header("Input Action References")]
     [SerializeField] private InputActionReference _moveAction;
@@ -45,6 +46,7 @@ public class InputController : MonoBehaviour
     [SerializeField] private InputActionReference _pauseAction;
     [SerializeField] private InputActionReference _shopAction;
 
+    [SerializeField] private InputActionReference _clickAction;
     [SerializeField] private InputActionReference _interactAction;
     [SerializeField] private InputActionReference _mouseAction;
 
@@ -59,6 +61,7 @@ public class InputController : MonoBehaviour
         _shopAction.action.Enable();
 
         //Mouse
+        _clickAction.action.Enable();
         _interactAction.action.Enable();
         _mouseAction.action.Enable();
 
@@ -80,8 +83,8 @@ public class InputController : MonoBehaviour
         _shopAction.action.performed += OnShopPerformed;
 
         //Mouse Movement
+        _clickAction.action.performed += OnClickPerformed;
         _interactAction.action.performed += OnInteractPerformed;
-        _interactAction.action.canceled += OnInteractCancelled;
 
         _mouseAction.action.performed += OnMousePerformed;
         _mouseAction.action.canceled += OnMouseCancelled;
@@ -94,8 +97,14 @@ public class InputController : MonoBehaviour
         _crouchAction.action.Disable();
         _sprintAction.action.Disable();
 
+        //UI
+        _shopAction.action.Disable();
+
+        //Mouse
+        _clickAction.action.Disable();
         _interactAction.action.Disable();
         _mouseAction.action.Disable();
+
         //Player Movement
 
         _moveAction.action.performed -= OnMovePerformed;
@@ -110,10 +119,12 @@ public class InputController : MonoBehaviour
         _sprintAction.action.performed -= OnSprintPerformed;
         _sprintAction.action.canceled -= OnSprintCancelled;
 
-        //Mouse Movement
+        //UI
+        _shopAction.action.performed -= OnShopPerformed;
 
+        //Mouse Movement
+        _clickAction.action.performed -= OnClickPerformed;
         _interactAction.action.performed -= OnInteractPerformed;
-        _interactAction.action.canceled -= OnInteractCancelled;
 
         _mouseAction.action.performed -= OnMousePerformed;
         _mouseAction.action.canceled -= OnMouseCancelled;
@@ -190,20 +201,24 @@ public class InputController : MonoBehaviour
     //
     public void OnInteractPerformed(InputAction.CallbackContext context)
     {
+
         interact = context.ReadValue<float>();
 
-        OnInteractInteraction.Invoke();
+        InteractionController.Instance.WorldInteraction();
+
+        //OnInteractInteraction.Invoke();
     }
 
-    public void OnInteractCancelled(InputAction.CallbackContext context)
+    public void OnClickPerformed(InputAction.CallbackContext context)
     {
-        interact = context.ReadValue<float>();
-
+        CurrencyManagement.Instance.ButtonCicked();
     }
 
     public void OnShopPerformed(InputAction.CallbackContext context)
     {
+        UIManager.Instance.ToggleShop();
 
+        //OnShopInteraction.Invoke();
     }
 
     #endregion

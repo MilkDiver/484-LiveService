@@ -6,7 +6,6 @@ public class CurrencyManagement : MonoBehaviour
 
     // Data
     [SerializeField] private float currentBalance = 0.0f;
-    [SerializeField] private GameObject currentInteractingObject = null;
 
     public float CurrentBalance
     {
@@ -30,5 +29,14 @@ public class CurrencyManagement : MonoBehaviour
     public void ChangeBalance(float change)
     {
         currentBalance += change;
+        UIManager.Instance.UpdatePlayerBalance();
+    }
+
+    //This can be added on
+    public void ButtonCicked()
+    {
+        Debug.Log("Yep");
+
+        ChangeBalance(0.25f);
     }
 }
