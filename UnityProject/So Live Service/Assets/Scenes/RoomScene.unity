@@ -4095,7 +4095,7 @@ MonoBehaviour:
   _crouchAction: {fileID: 7040659881675835329, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _pauseAction: {fileID: 0}
-  _shopAction: {fileID: 0}
+  _shopAction: {fileID: -924050390177871393, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _mouseAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!54 &1682460344
@@ -4263,10 +4263,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc148b27f7931a640ac3a4d1aa7ccc6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LootboxManager
-  lootboxRewards: []
+  lootboxRewards:
+  - {fileID: 3169090002416453430, guid: 9b087ad3ee72dbd408584ba96bc2cc57, type: 3}
+  - {fileID: 7441440908871300343, guid: 052f0d9a551166b458c44593c6566808, type: 3}
+  - {fileID: 3978156976444542998, guid: a8b1655a90145094bbbfdb3ddd350367, type: 3}
+  - {fileID: 2099316281507514234, guid: 2fbb6c85cd0b18a409dfae33e4319200, type: 3}
+  - {fileID: 7074948992791993279, guid: dc9c860c0461534488018ebede9b5f12, type: 3}
+  - {fileID: 4350874406377604858, guid: db6cb79803d99de41ae15f15a875d281, type: 3}
+  - {fileID: 89156558108113759, guid: 3384463bb3a16c049bd57c0306467a4c, type: 3}
   lootboxIncrement: 0
   lootboxSlider: {fileID: 222166864}
   player: {fileID: 1682460339}
+  uiManager: {fileID: 2113264535}
 --- !u!1 &1726196443
 GameObject:
   m_ObjectHideFlags: 0
@@ -5295,7 +5303,6 @@ GameObject:
   - component: {fileID: 1980014269}
   - component: {fileID: 1980014268}
   - component: {fileID: 1980014267}
-  - component: {fileID: 1980014271}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged

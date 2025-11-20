@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
         UpdatePlayerBalance();
     }
 
-    void UpdatePlayerBalance()
+    public void UpdatePlayerBalance()
     {
         currencyText.text = playerInteraction.CurrentBalance.ToString();
     }
