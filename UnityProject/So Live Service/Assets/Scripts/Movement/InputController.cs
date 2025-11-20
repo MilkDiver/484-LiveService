@@ -23,19 +23,18 @@ public class InputController : MonoBehaviour
 
     public Vector2 mouseDirection;
 
+    public float interact = 0;
+
     private float jumping = 0;
 
     private float sprinting = 0;
 
     private float crouching = 0;
 
-    private float primary = 0;
-
-    private float secondary = 0;
-
-    [SerializeField] private float viewSwitch = 0;
+    private bool isReleased;
 
     public static event PlayerInteractionDelegate OnInteractInteraction;
+    public static event PlayerInteractionDelegate OnShopInteraction;
 
     [Header("Input Action References")]
     [SerializeField] private InputActionReference _moveAction;
@@ -44,6 +43,7 @@ public class InputController : MonoBehaviour
     [SerializeField] private InputActionReference _sprintAction;
     
     [SerializeField] private InputActionReference _pauseAction;
+    [SerializeField] private InputActionReference _shopAction;
 
     [SerializeField] private InputActionReference _interactAction;
     [SerializeField] private InputActionReference _mouseAction;
@@ -55,8 +55,13 @@ public class InputController : MonoBehaviour
         _crouchAction.action.Enable();
         _sprintAction.action.Enable();
 
+        //UI
+        _shopAction.action.Enable();
+
+        //Mouse
         _interactAction.action.Enable();
         _mouseAction.action.Enable();
+
         //Player Movement
 
         _moveAction.action.performed += OnMovePerformed;
@@ -71,8 +76,10 @@ public class InputController : MonoBehaviour
         _sprintAction.action.performed += OnSprintPerformed;
         _sprintAction.action.canceled += OnSprintCancelled;
 
-        //Mouse Movement
+        //UI
+        _shopAction.action.performed += OnShopPerformed;
 
+        //Mouse Movement
         _interactAction.action.performed += OnInteractPerformed;
         _interactAction.action.canceled += OnInteractCancelled;
 
@@ -183,14 +190,21 @@ public class InputController : MonoBehaviour
     //
     public void OnInteractPerformed(InputAction.CallbackContext context)
     {
-        float primary = context.ReadValue<float>();
+        interact = context.ReadValue<float>();
 
         OnInteractInteraction.Invoke();
     }
 
     public void OnInteractCancelled(InputAction.CallbackContext context)
     {
-        float primary = context.ReadValue<float>();
+        interact = context.ReadValue<float>();
+
     }
+
+    public void OnShopPerformed(InputAction.CallbackContext context)
+    {
+
+    }
+
     #endregion
 }

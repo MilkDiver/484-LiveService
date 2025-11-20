@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +6,9 @@ using UnityEngine;
 
 public class InteractionController : MonoBehaviour
 {
+    public static InteractionController Instance { get; private set; }
+
+    [Header("yep")]
     [SerializeField] private float interact;
 
     [SerializeField] private Camera playerCam;
@@ -12,8 +16,6 @@ public class InteractionController : MonoBehaviour
     [SerializeField] private LayerMask interactableLayers;
 
     [SerializeField] private Transform targetOBJ;
-
-    [SerializeField] TextMeshProUGUI interactionText;
 
     [SerializeField] private float minScale, maxScale;
 
@@ -27,9 +29,13 @@ public class InteractionController : MonoBehaviour
 
     [SerializeField] private List<GameObject> centerList;
 
+    [SerializeField] TextMeshProUGUI interactionText;
+
+    [Header("Interactable")]
+
     IInteractable currentTargetInteractable;
 
-    IPurchase currentTargetPurchasable;
+    //IPurchase currentTargetPurchasable;
 
     [SerializeField] private float testVar1, testVar2, testVar3;
 
@@ -37,6 +43,19 @@ public class InteractionController : MonoBehaviour
     {
         get { return interact; }
         set { interact = value; }
+    }
+
+    public void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public void Update()
@@ -147,20 +166,19 @@ public class InteractionController : MonoBehaviour
                 currentTargetInteractable = interactObj;
             }
 
+            /*
             else if (hit.collider.TryGetComponent<IPurchase>(out IPurchase purchaseObj))
             {
                 currentTargetPurchasable = purchaseObj;
             }
+            */
         }
-
-        
-
-        
-            
-
-       
 
         targetOBJ = hit.collider?.GetComponent<Transform>();
     }
 
+    private void OnDrawGizmos()
+    {
+
+    }
 }
