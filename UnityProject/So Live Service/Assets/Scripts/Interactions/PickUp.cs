@@ -34,6 +34,4 @@ public class PickUp : MonoBehaviour, IInteractable
     {
 
     }
-
-    private void 
 }
