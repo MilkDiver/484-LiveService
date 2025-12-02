@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
+using static PlayerInteraction;
 
 public class InputController : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class InputController : MonoBehaviour
 
     [SerializeField] private PlayerMovement movement;
 
+    // Delegates
+    //public delegate void PlayerInteractionDelegate();
+
     //[SerializeField] private WeaponVals weaponVals;
 
     [Header("Input Values")]
@@ -19,17 +24,18 @@ public class InputController : MonoBehaviour
 
     public Vector2 mouseDirection;
 
+    public float interact = 0;
+
     private float jumping = 0;
 
     private float sprinting = 0;
 
     private float crouching = 0;
 
-    private float primary = 0;
+    private bool isReleased;
 
-    private float secondary = 0;
-
-    [SerializeField] private float viewSwitch = 0;
+    //public static event PlayerInteractionDelegate OnInteractInteraction;
+    //public static event PlayerInteractionDelegate OnShopInteraction;
 
     [Header("Input Action References")]
     [SerializeField] private InputActionReference _moveAction;
@@ -38,7 +44,9 @@ public class InputController : MonoBehaviour
     [SerializeField] private InputActionReference _sprintAction;
     
     [SerializeField] private InputActionReference _pauseAction;
+    [SerializeField] private InputActionReference _shopAction;
 
+    [SerializeField] private InputActionReference _clickAction;
     [SerializeField] private InputActionReference _interactAction;
     [SerializeField] private InputActionReference _mouseAction;
 
@@ -49,8 +57,14 @@ public class InputController : MonoBehaviour
         _crouchAction.action.Enable();
         _sprintAction.action.Enable();
 
+        //UI
+        _shopAction.action.Enable();
+
+        //Mouse
+        _clickAction.action.Enable();
         _interactAction.action.Enable();
         _mouseAction.action.Enable();
+
         //Player Movement
 
         _moveAction.action.performed += OnMovePerformed;
@@ -65,10 +79,12 @@ public class InputController : MonoBehaviour
         _sprintAction.action.performed += OnSprintPerformed;
         _sprintAction.action.canceled += OnSprintCancelled;
 
-        //Mouse Movement
+        //UI
+        _shopAction.action.performed += OnShopPerformed;
 
+        //Mouse Movement
+        _clickAction.action.performed += OnClickPerformed;
         _interactAction.action.performed += OnInteractPerformed;
-        _interactAction.action.canceled += OnInteractCancelled;
 
         _mouseAction.action.performed += OnMousePerformed;
         _mouseAction.action.canceled += OnMouseCancelled;
@@ -81,8 +97,14 @@ public class InputController : MonoBehaviour
         _crouchAction.action.Disable();
         _sprintAction.action.Disable();
 
+        //UI
+        _shopAction.action.Disable();
+
+        //Mouse
+        _clickAction.action.Disable();
         _interactAction.action.Disable();
         _mouseAction.action.Disable();
+
         //Player Movement
 
         _moveAction.action.performed -= OnMovePerformed;
@@ -97,10 +119,12 @@ public class InputController : MonoBehaviour
         _sprintAction.action.performed -= OnSprintPerformed;
         _sprintAction.action.canceled -= OnSprintCancelled;
 
-        //Mouse Movement
+        //UI
+        _shopAction.action.performed -= OnShopPerformed;
 
+        //Mouse Movement
+        _clickAction.action.performed -= OnClickPerformed;
         _interactAction.action.performed -= OnInteractPerformed;
-        _interactAction.action.canceled -= OnInteractCancelled;
 
         _mouseAction.action.performed -= OnMousePerformed;
         _mouseAction.action.canceled -= OnMouseCancelled;
@@ -177,12 +201,25 @@ public class InputController : MonoBehaviour
     //
     public void OnInteractPerformed(InputAction.CallbackContext context)
     {
-        float primary = context.ReadValue<float>();
+
+        interact = context.ReadValue<float>();
+
+        InteractionController.Instance.WorldInteraction();
+
+        //OnInteractInteraction.Invoke();
     }
 
-    public void OnInteractCancelled(InputAction.CallbackContext context)
+    public void OnClickPerformed(InputAction.CallbackContext context)
     {
-        float primary = context.ReadValue<float>();
+        CurrencyManagement.Instance.ButtonCicked();
     }
+
+    public void OnShopPerformed(InputAction.CallbackContext context)
+    {
+        UIManager.Instance.ToggleShop();
+
+        //OnShopInteraction.Invoke();
+    }
+
     #endregion
 }
