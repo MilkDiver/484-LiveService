@@ -9,25 +9,39 @@ public class BuyShop : MonoBehaviour,IPurchase, IInteractable
 
     public TextMeshProUGUI textObject => interactionText;
 
-    public string InteractMessage => purchaseMessage;
+    public string InteractMessage => interactionMessage;
 
-    private bool isPurchased;
-    private string purchaseMessage;
-    private float purchasePrice;
+    public string displayedMessage => displayedPurchaseMessage;
+
+    [SerializeField] private bool isPurchased;
+    [SerializeField] private string interactionMessage;
+    [SerializeField] private string displayedPurchaseMessage;
+    [SerializeField] private float purchasePrice;
 
     [SerializeField] private GameObject spawnItem;
+
+    [SerializeField] private GameObject spawnPositionOBJ;
 
     //The text part of floating UI element
     [SerializeField] private TMPro.TextMeshProUGUI interactionText;
 
     private void Start()
     {
-        interactionText.text = purchaseMessage;
+        interactionText.text = CreateText();
+    }
+
+    private string CreateText()
+    {
+        string text = string.Empty;
+
+        text = $"${purchasePrice} {displayedPurchaseMessage}";
+
+        return text;
     }
 
     private void SpawnItem()
     {
-        Instantiate(spawnItem);
+        Instantiate(spawnItem,spawnPositionOBJ.transform.position,Quaternion.identity);
     }
 
     public void Interact()
@@ -38,6 +52,7 @@ public class BuyShop : MonoBehaviour,IPurchase, IInteractable
 
             SpawnItem();
 
+            UIManager.Instance.UpdatePlayerBalance();
         }
         if (isPurchased == false)
         {

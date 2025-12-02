@@ -9,10 +9,13 @@ public class BuyDoor : MonoBehaviour, IPurchase, IInteractable
 
     public TextMeshProUGUI textObject => interactionText;
 
-    public string InteractMessage => purchaseMessage;
+    public string InteractMessage => interactionMessage;
+
+    public string displayedMessage => displayedPurchaseMessage;
 
     [SerializeField] private bool isPurchased;
-    [SerializeField] private string purchaseMessage;
+    [SerializeField] private string interactionMessage;
+    [SerializeField] private string displayedPurchaseMessage;
     [SerializeField] private float purchasePrice;
 
     //The text part of floating UI element
@@ -20,7 +23,7 @@ public class BuyDoor : MonoBehaviour, IPurchase, IInteractable
 
     private void Start()
     {
-        interactionText.text = purchaseMessage;
+        interactionText.text = CreateText();
     }
 
     /*
@@ -42,14 +45,23 @@ public class BuyDoor : MonoBehaviour, IPurchase, IInteractable
     }
     */
 
+    private string CreateText()
+    {
+        string text = string.Empty;
+
+        text = $"${purchasePrice} {displayedPurchaseMessage}";
+
+        return text;
+    }
+
     private void OpenDoor()
     {
-        this.transform.parent.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     private void CloseDoor()
     {
-        this.transform.parent.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     public void Interact()
@@ -61,6 +73,8 @@ public class BuyDoor : MonoBehaviour, IPurchase, IInteractable
             isPurchased = true;
 
             OpenDoor();
+
+            UIManager.Instance.UpdatePlayerBalance();
         }
         if (isPurchased == false) 
         {
