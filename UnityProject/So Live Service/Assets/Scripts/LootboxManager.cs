@@ -16,10 +16,13 @@ public class LootboxManager : MonoBehaviour
     // References
     [SerializeField] private Slider lootboxSlider;
     [SerializeField] private GameObject player;
+    [SerializeField] private UIManager uiManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        InputController.OnInteractInteraction += IncreaseLootboxIncrement;
+
         InitializeCollection();
     }
 
@@ -39,6 +42,7 @@ public class LootboxManager : MonoBehaviour
 
     void IncreaseLootboxIncrement()
     {
+        Debug.Log("Lootbox Increment!");
         lootboxIncrement++;
         lootboxSlider.value++;
 
@@ -48,7 +52,7 @@ public class LootboxManager : MonoBehaviour
             // Reset lootbox increment and start lootbox animation
             lootboxIncrement = 0;
             lootboxSlider.value = 0;
-            OpenLootbox();
+            StartCoroutine(OpenLootbox());
         }
     }
 
@@ -70,11 +74,15 @@ public class LootboxManager : MonoBehaviour
 
     public void PurchaseLootbox()
     {
+        Debug.Log("Purchasing Lootbox!");
         float playerBalance = player.GetComponent<PlayerInteraction>().CurrentBalance;
+        Debug.Log(playerBalance);
         if (playerBalance > 10)
         {
-            playerBalance -= 10;
-            //OpenLootbox();
+            Debug.Log("Purchasing Lootbox!");
+            player.GetComponent<PlayerInteraction>().CurrentBalance = playerBalance - 10;
+            uiManager.UpdatePlayerBalance();
+            StartCoroutine(OpenLootbox());
         }
     }
 }
