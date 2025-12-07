@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class CurrencyManagement : MonoBehaviour
+public class PickUpController : MonoBehaviour
 {
-    public static CurrencyManagement Instance { get; private set; }
+    public static PickUpController Instance { get; private set; }
 
     // Data
     [SerializeField] private float currentBalance = 0.0f;
@@ -24,19 +24,5 @@ public class CurrencyManagement : MonoBehaviour
             Instance = this;
             DontDestroyOnLoad(gameObject);
         }
-    }
-
-    public void ChangeBalance(float change)
-    {
-        currentBalance += change;
-        UIManager.Instance.UpdatePlayerBalance();
-    }
-
-    //This can be added on
-    public void ButtonCicked()
-    {
-        Debug.Log("Yep");
-
-        ChangeBalance(0.25f);
     }
 }
