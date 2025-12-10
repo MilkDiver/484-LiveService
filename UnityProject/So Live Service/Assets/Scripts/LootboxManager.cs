@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class LootboxManager : MonoBehaviour
 {
+    public static LootboxManager Instance { get; private set; }
 
     // Data
     public List<GameObject> lootboxRewards = new List<GameObject>();
@@ -18,11 +19,22 @@ public class LootboxManager : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private UIManager uiManager;
 
+    public void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        InputController.OnInteractInteraction += IncreaseLootboxIncrement;
-
         InitializeCollection();
     }
 
@@ -40,7 +52,7 @@ public class LootboxManager : MonoBehaviour
         }
     }
 
-    void IncreaseLootboxIncrement()
+    public void IncreaseLootboxIncrement()
     {
         Debug.Log("Lootbox Increment!");
         lootboxIncrement++;

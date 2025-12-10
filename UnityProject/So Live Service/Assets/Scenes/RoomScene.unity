@@ -311,6 +311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyManagement
   currentBalance: 0
+  clickTimer: 0
 --- !u!114 &104537343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2328,7 +2329,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $10 to Unlock!
+  m_text: 10 Cents to Unlock!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4513,8 +4514,8 @@ GameObject:
   - component: {fileID: 1682460340}
   - component: {fileID: 1682460343}
   - component: {fileID: 1682460342}
-  - component: {fileID: 1682460346}
   - component: {fileID: 1682460347}
+  - component: {fileID: 1682460348}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -4620,6 +4621,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1682460340}
   movement: {fileID: 1682460342}
+  physicsGrab: {fileID: 1682460348}
   inputDirection: {x: 0, y: 0}
   mouseDirection: {x: 0, y: 0}
   interact: 0
@@ -4777,22 +4779,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1682460346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1682460339}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9283d1062bdcf0741818ccc00a33f704, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteraction
-  interactionAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  shopInputAction: {fileID: -924050390177871393, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  currentBalance: 0
-  currentInteractingObject: {fileID: 0}
 --- !u!114 &1682460347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4817,6 +4803,25 @@ MonoBehaviour:
   lootboxSlider: {fileID: 222166864}
   player: {fileID: 1682460339}
   uiManager: {fileID: 2113264535}
+--- !u!114 &1682460348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682460339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 621598841a60165448069c5824414205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhysicsGrab
+  cam: {fileID: 602170213}
+  grabRange: 5
+  maxHoldDistance: 1.5
+  moveSpeed: 20
+  rotateSpeed: 10
+  tryGrabbing: 0
+  grabbedRb: {fileID: 0}
 --- !u!1 &1726196443
 GameObject:
   m_ObjectHideFlags: 0
@@ -5510,7 +5515,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Buy Lootbox
 
-    $10'
+    5 Cents'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6125,7 +6130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: $10 to Unlock!
+  m_text: 1 Cent to Unlock!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
