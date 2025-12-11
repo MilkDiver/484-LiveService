@@ -2346,9 +2346,21 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 488141121530660170, guid: 1f1b9d00ecafecb4f9138fcc11c3fa70, type: 3}
+      propertyPath: purchasePrice
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1097919019470268101, guid: 1f1b9d00ecafecb4f9138fcc11c3fa70, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239803254327770077, guid: 1f1b9d00ecafecb4f9138fcc11c3fa70, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.58510375
+      objectReference: {fileID: 0}
+    - target: {fileID: 1239803254327770077, guid: 1f1b9d00ecafecb4f9138fcc11c3fa70, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -13.63464
       objectReference: {fileID: 0}
     - target: {fileID: 1651799706125194347, guid: 1f1b9d00ecafecb4f9138fcc11c3fa70, type: 3}
       propertyPath: m_Layer
@@ -2611,6 +2623,14 @@ PrefabInstance:
     - target: {fileID: 1180206598567937837, guid: b162342dc7ca2cc44b6b6502ab0b15f7, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232575178170331609, guid: b162342dc7ca2cc44b6b6502ab0b15f7, type: 3}
+      propertyPath: senseX
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232575178170331609, guid: b162342dc7ca2cc44b6b6502ab0b15f7, type: 3}
+      propertyPath: senseY
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2232575178170331609, guid: b162342dc7ca2cc44b6b6502ab0b15f7, type: 3}
       propertyPath: virtualCam

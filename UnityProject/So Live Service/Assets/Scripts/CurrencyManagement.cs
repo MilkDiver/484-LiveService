@@ -9,7 +9,7 @@ public class CurrencyManagement : MonoBehaviour
     public static CurrencyManagement Instance { get; private set; }
 
     // Data
-    [SerializeField] private float currentBalance = 0.000f;
+    [SerializeField] private float currentBalance = 5.000f;
     [SerializeField] private bool clickTimer = false;
 
     public float CurrentBalance
