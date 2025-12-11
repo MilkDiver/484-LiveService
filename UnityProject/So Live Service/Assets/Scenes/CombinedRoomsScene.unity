@@ -378,7 +378,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6427fddee939134092a833d28a66f83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CurrencyManagement
-  currentBalance: 0
+  currentBalance: 1
   clickTimer: 0
 --- !u!114 &104537343
 MonoBehaviour:
