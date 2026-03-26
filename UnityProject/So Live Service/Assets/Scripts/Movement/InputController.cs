@@ -13,7 +13,7 @@ public class InputController : MonoBehaviour
     //[SerializeField] private TestPlayerMovement movement;
 
     [SerializeField] private PlayerMovement movement;
-
+    [SerializeField] private PhysicsGrab physicsGrab;
     // Delegates
     //public delegate void PlayerInteractionDelegate();
 
@@ -84,6 +84,7 @@ public class InputController : MonoBehaviour
 
         //Mouse Movement
         _clickAction.action.performed += OnClickPerformed;
+        _clickAction.action.canceled += OnClickCancelled;
         _interactAction.action.performed += OnInteractPerformed;
 
         _mouseAction.action.performed += OnMousePerformed;
@@ -205,13 +206,20 @@ public class InputController : MonoBehaviour
         interact = context.ReadValue<float>();
 
         InteractionController.Instance.WorldInteraction();
-
-        //OnInteractInteraction.Invoke();
     }
 
     public void OnClickPerformed(InputAction.CallbackContext context)
     {
         CurrencyManagement.Instance.ButtonCicked();
+        LootboxManager.Instance.IncreaseLootboxIncrement();
+        physicsGrab.TryGrab();
+        physicsGrab.tryGrabbing = true;
+    }
+
+    public void OnClickCancelled(InputAction.CallbackContext context)
+    {
+        physicsGrab.Drop();
+        physicsGrab.tryGrabbing = false;
     }
 
     public void OnShopPerformed(InputAction.CallbackContext context)
