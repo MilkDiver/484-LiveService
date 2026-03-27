@@ -1,42 +1,62 @@
 using TMPro;
 using UnityEngine;
 
-public class BuyShop : MonoBehaviour, IPurchase
+public class BuyShop : MonoBehaviour,IPurchase, IInteractable
 {
-    public string interactMessage => purchaseMessage;
-
     public bool purchased => isPurchased;
 
     public float price => purchasePrice;
 
     public TextMeshProUGUI textObject => interactionText;
 
-    private bool isPurchased;
-    private string purchaseMessage;
-    private float purchasePrice;
+    public string InteractMessage => interactionMessage;
+
+    public string displayedMessage => displayedPurchaseMessage;
+
+    [SerializeField] private bool isPurchased;
+    [SerializeField] private string interactionMessage;
+    [SerializeField] private string displayedPurchaseMessage;
+    [SerializeField] private float purchasePrice;
+
+    [SerializeField] private GameObject spawnItem;
+
+    [SerializeField] private GameObject spawnPositionOBJ;
 
     //The text part of floating UI element
     [SerializeField] private TMPro.TextMeshProUGUI interactionText;
 
     private void Start()
     {
-        interactionText.text = purchaseMessage;
+        interactionText.text = CreateText();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private string CreateText()
     {
-        if (other.name == "PlayerGeneralCollider")
+        string text = string.Empty;
+
+        text = $"${purchasePrice} {displayedPurchaseMessage}";
+
+        return text;
+    }
+
+    private void SpawnItem()
+    {
+        Instantiate(spawnItem,spawnPositionOBJ.transform.position,Quaternion.identity);
+    }
+
+    public void Interact()
+    {
+        if (isPurchased != true && CurrencyManagement.Instance.CurrentBalance >= purchasePrice)
         {
-            interactionText.gameObject.SetActive(true);
-            other.transform.parent.gameObject.GetComponent<PlayerInteraction>().CurrentInteractingObject = this.gameObject;
+            CurrencyManagement.Instance.CurrentBalance -= purchasePrice;
+
+            SpawnItem();
+
+            UIManager.Instance.UpdatePlayerBalance();
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.name == "PlayerGeneralCollider")
+        if (isPurchased == false)
         {
-            interactionText.gameObject.SetActive(false);
+            Debug.Log("Not Enought Money");
         }
     }
 }

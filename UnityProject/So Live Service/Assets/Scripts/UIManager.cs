@@ -4,43 +4,58 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // References
-    
-    [SerializeField] private PlayerInteraction playerInteraction;
+    public static UIManager Instance { get; private set; }
+
+    // References    
+    //[SerializeField] private PlayerInteraction playerInteraction;
+    //[SerializeField] private CurrencyManagement currencyManagement;
 
     // UI References
     [SerializeField] private TextMeshProUGUI currencyText;
     [SerializeField] private GameObject shopPanel;
 
+    public void Awake()
+    {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PlayerInteraction.OnButtonInteraction += UpdatePlayerBalance;
-        PlayerInteraction.OnShopInteraction += ToggleShop;
+        //PlayerInteraction.OnButtonInteraction += UpdatePlayerBalance;
+        //PlayerInteraction.OnShopInteraction += ToggleShop;
 
         UpdatePlayerBalance();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdatePlayerBalance()
     {
-        
+        currencyText.text = $"{CurrencyManagement.Instance.CurrentBalance}";
     }
 
-    void UpdatePlayerBalance()
-    {
-        currencyText.text = playerInteraction.CurrentBalance.ToString();
-    }
-
-    void ToggleShop()
+    public void ToggleShop()
     {
         if (shopPanel.activeSelf)
         {
+            // Unlock Cursor and shop Shop
             shopPanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         else
         {
+            // Hide and lock cursor
             shopPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         
     }
